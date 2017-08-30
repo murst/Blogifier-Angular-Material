@@ -1,0 +1,18 @@
+﻿@using Blogifier.Core.Common
+@{
+    var themeFolder = "blogifier/blog/custom";
+    var customFooter = "";
+    try
+    {
+        var cf = Model.CustomFields;
+        customFooter = (cf.ContainsKey("Footer") && !string.IsNullOrEmpty(cf["Footer"])) ? cf["Footer"] : "";
+    }
+    catch { }
+}
+<footer layout-padding>
+    <p style="text-align: center; font-size: smaller;">
+        Copyright © @DateTime.Now.Year @ApplicationSettings.Title. Powered by <a href="http://blogifier.net/" data-toggle="tooltip" target="_blank" title="Version - @Blogifier.Core.Common.ApplicationSettings.Version">Blogifier</a>.
+    </p>
+</footer>
+<form method="post" id="frmLogOut" asp-controller="Account" asp-action="Logout" asp-antiforgery="true"></form>
+@Html.Raw(customFooter)
