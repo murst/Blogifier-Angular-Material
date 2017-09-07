@@ -4,17 +4,7 @@
         return $sce.trustAsHtml;
     }])
 
-    .config(['$mdIconProvider', '$stateProvider', function ($mdIconProvider, $stateProvider) {
-
-        var shareIconPath = '/blogifier/blog/AngularMaterial/images/share/';
-
-        $mdIconProvider
-            .icon('Facebook', shareIconPath + 'facebook.svg', 24)
-            .icon('Google', shareIconPath + 'google.svg', 24)
-            .icon('Twitter', shareIconPath + 'twitter.svg', 24)
-            .icon('Github', shareIconPath + 'github.svg', 24)
-            .icon('Instagram', shareIconPath + 'instagram.svg', 24)
-            .icon('LinkedIn', shareIconPath + 'linkedin.svg', 24);
+    .config(['$stateProvider', function ($stateProvider) {
 
         $stateProvider.state('home', {
             url: '/home/:page',
@@ -168,12 +158,12 @@
 
         $transitions.onEnter({ to: 'authorcategory' }, function (trans) {
             $scope.toggleCategoryMenu(true);
-            updateSelectedCategoryIndex(trans.params().slug);
+            updateSelectedCategoryIndex(trans.params().category);
         });
 
         $transitions.onEnter({ to: 'category' }, function (trans) {
             $scope.toggleCategoryMenu(true);
-            updateSelectedCategoryIndex(trans.params().slug);
+            updateSelectedCategoryIndex(trans.params().category);
         });
 
         $scope.$on('loadComplete', function () {
@@ -241,6 +231,50 @@
             });
         };
 
+        $scope.loadSocial = function (profileId) {
+            var wsUrl = profileId ? '/blogifier/api/public/Settings/{name}?profileId=' + profileId : '/blogifier/api/public/Settings/{name}';
+
+            var googleUrl = wsUrl.split('{name}').join('Google');
+            $http({
+                method: 'GET',
+                url: googleUrl
+            }).then(function successCallback(response) {
+                $scope.google = response.data;
+            });
+
+            var twitterUrl = wsUrl.split('{name}').join('Twitter');
+            $http({
+                method: 'GET',
+                url: twitterUrl
+            }).then(function successCallback(response) {
+                $scope.twitter = response.data;
+                });
+
+            var githubUrl = wsUrl.split('{name}').join('Github');
+            $http({
+                method: 'GET',
+                url: githubUrl
+            }).then(function successCallback(response) {
+                $scope.github = response.data;
+                });
+
+            var facebookUrl = wsUrl.split('{name}').join('Facebook');
+            $http({
+                method: 'GET',
+                url: facebookUrl
+            }).then(function successCallback(response) {
+                $scope.facebook = response.data;
+                });
+
+            var instagramUrl = wsUrl.split('{name}').join('Instagram');
+            $http({
+                method: 'GET',
+                url: instagramUrl
+            }).then(function successCallback(response) {
+                $scope.instagram = response.data;
+            });
+        }
+
         var $header = $('.blog-header h1');
         $header.textillate({
             in: {
@@ -256,6 +290,7 @@
         });
 
         $scope.loadCategories($rootScope.blogSettings.author);
+        $scope.loadSocial();
 
         if (!window.location.hash) {
             $state.go('home', { page: 1 });

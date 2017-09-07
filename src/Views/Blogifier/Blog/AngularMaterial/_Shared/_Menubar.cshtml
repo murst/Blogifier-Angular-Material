@@ -11,6 +11,26 @@
             <span>Categories</span>
         </md-button>
         <span md-truncate flex></span>
+        <md-button ng-show="google" href="{{google}}" class="social-button">
+            <md-tooltip md-direction="bottom" md-autohide="true">Google Plus</md-tooltip>
+            <span class="fa fa-google-plus"></span>
+        </md-button>
+        <md-button ng-show="github" href="{{github}}" class="social-button">
+            <md-tooltip md-direction="bottom" md-autohide="true">Github</md-tooltip>
+            <span class="fa fa-github"></span>
+        </md-button>
+        <md-button ng-show="twitter" href="{{twitter}}" class="social-button">
+            <md-tooltip md-direction="bottom" md-autohide="true">Twitter</md-tooltip>
+            <span class="fa fa-twitter"></span>
+        </md-button>
+        <md-button ng-show="facebook" href="{{facebook}}" class="social-button">
+            <md-tooltip md-direction="bottom" md-autohide="true">Facebook</md-tooltip>
+            <span class="fa fa-facebook"></span>
+        </md-button>
+        <md-button ng-show="instagram" href="{{instagram}}" class="social-button">
+            <md-tooltip md-direction="bottom" md-autohide="true">Instagram</md-tooltip>
+            <span class="fa fa-instagram"></span>
+        </md-button>
         <input type="search" id="term" name="term" class="form-control" ng-show="blogsearch" ng-blur="blogsearch=false" placeholder="Search..." style="width: 10em;">
         <md-button ng-hide="blogsearch" ng-click="showSearch()">
             <md-icon>search</md-icon>

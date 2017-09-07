@@ -1,4 +1,5 @@
 ﻿using Blogifier.Core.Controllers;
+using Blogifier.Core.Data.Domain;
 using Blogifier.Core.Data.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -17,34 +18,58 @@ namespace WebApp.Controllers.Api.Public
             _logger = logger;
         }
 
-        public string Head()
+        private string GetCustomFieldValue(string name, int? profileId)
         {
-            var field = _db.CustomFields.Single(f => f.CustomKey == "Head");
+            CustomField field;
+            if (profileId.HasValue)
+                field = _db.CustomFields.Single(f => f.CustomKey == name && f.ParentId == profileId.Value);
+            else
+                field = _db.CustomFields.Single(f => f.CustomKey == name);
+
             if (field != null)
-            {
                 return field.CustomValue;
-            }
-            return string.Empty;
+            else
+                return string.Empty;
         }
 
-        public string Post()
+        public string Head(int? profileId)
         {
-            var field = _db.CustomFields.Single(f => f.CustomKey == "Post");
-            if(field != null)
-            {
-                return field.CustomValue;
-            }
-            return string.Empty;
+            return GetCustomFieldValue("Head", profileId);
         }
 
-        public string Footer()
+        public string Post(int? profileId)
         {
-            var field = _db.CustomFields.Single(f => f.CustomKey == "Footer");
-            if (field != null)
-            {
-                return field.CustomValue;
-            }
-            return string.Empty;
+            return GetCustomFieldValue("Post", profileId);
+        }
+
+        public string Footer(int? profileId)
+        {
+            return GetCustomFieldValue("Footer", profileId);
+        }
+
+        public string Google(int? profileId)
+        {
+            return GetCustomFieldValue("Google", profileId);
+        }
+
+        public string Twitter(int? profileId)
+        {
+            return GetCustomFieldValue("Twitter", profileId);
+        }
+
+        public string Github(int? profileId)
+        {
+            return GetCustomFieldValue("Github", profileId);
+        }
+
+        public string Facebook(int? profileId)
+        {
+            return GetCustomFieldValue("Facebook", profileId);
+        }
+
+        public string Instagram(int? profileId)
+        {
+            return GetCustomFieldValue("Instagram", profileId);
         }
     }
 }

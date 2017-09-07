@@ -373,6 +373,16 @@ md-nav-bar * {
     margin-right: auto;
 }
 
+    .menu-bar .social-button {
+        color: black;
+        min-width: 2em;
+        font-size: 1.1em;
+    }
+
+md-tooltip .md-content {
+    font-size: 150%;
+}
+
 @media screen and (max-width: 720px) {
     body {
         font-size: 90%;
