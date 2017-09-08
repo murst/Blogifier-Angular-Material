@@ -5,7 +5,7 @@ The purpose of this project is to create a theme for [blogifier](https://github.
 
 The theme is designed to be a "single-page" theme, utilizing ui-router.
 
-Simply copy the contents of the 'src' directory into your web application project, and configure your appsettings.json:
+Copy the contents of the 'src' directory into your web application project, and configure your appsettings.json:
 
 ```
 {
@@ -18,6 +18,17 @@ Simply copy the contents of the 'src' directory into your web application projec
     ...
   }
 }
+```
+
+In addition, one other setting must be changed in your Startup.cs file. The models used by blogifier do not serialize properly, so you'll need to update your Startup.cs file. The following line
+
+```csharp
+services.AddMvc();
+```
+needs to be changed to
+
+```csharp
+services.AddMvc().AddJsonOptions(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 ```
 
 The theme is currently compatible with the dev branch of Blogifier.Core. In the future, I will convert this to follow the stable branch.
