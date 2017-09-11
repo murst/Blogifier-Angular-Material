@@ -20,18 +20,34 @@ namespace WebApp.Controllers.Api.Public
             _logger = logger;
         }
 
-        public IEnumerable<Profile> Get()
+        protected void Sanitize(Profile profile)
         {
-            var profiles = _db.Profiles.Find(p => p.LastUpdated >= DateTime.MinValue);
+            profile.Assets = null;
+            profile.BlogPosts = null;
+            profile.IsAdmin = false;
+            profile.AuthorEmail = "";
+            profile.IdentityName = "";
+        }
+
+        [Route("{slug}")]
+        public IEnumerable<Profile> Get(string slug)
+        {
+
+            IEnumerable<Profile> profiles;
+
+            if (String.IsNullOrEmpty(slug))
+            {
+                profiles = _db.Profiles.Find(p => p.LastUpdated >= DateTime.MinValue);
+            }
+            else
+            {
+                profiles = _db.Profiles.Find(p => p.Slug == slug);
+            }
 
             // sanitize: remove any private info and remove other items which aren't directly related to author info
             foreach(Profile profile in profiles)
             {
-                profile.Assets = null;
-                profile.BlogPosts = null;
-                profile.IsAdmin = false;
-                profile.AuthorEmail = "";
-                profile.IdentityName = "";
+                Sanitize(profile);
             }
 
             return profiles;

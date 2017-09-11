@@ -273,7 +273,9 @@ md-nav-bar * {
         background-position: 50% 50%;
         background-repeat: no-repeat;
         background-size: cover;
-        height: 500px;
+        height: 300px;
+        max-width: 2000px;
+        margin: 0 auto;
     }
 
         .post .post-header .post-header-text-wrapper {
@@ -341,6 +343,11 @@ md-nav-bar * {
         background-color: #eeeeff;
     }
 
+.profile-wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
 .docs-menu .menu-toggle-list a.md-button {
     display: block;
     padding: 0 16px 0 32px;
@@ -390,5 +397,23 @@ md-tooltip .md-content {
 
     .blog-header {
         font-size: 1em;
+    }
+}
+
+@media screen and (min-width: 700px) {
+    .post .post-header {
+        height: 500px;
+    }
+}
+
+@media screen and (min-width: 1200px) {
+    .post .post-header {
+        height: 700px;
+    }
+}
+
+@media screen and (min-width: 1600px) {
+    .post .post-header {
+        height: 800px;
     }
 }

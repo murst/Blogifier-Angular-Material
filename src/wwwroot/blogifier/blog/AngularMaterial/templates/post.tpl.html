@@ -6,7 +6,7 @@
                 <h1 class="post-title">{{postCtrl.post.title}}</h1>
                 <p class="post-description">{{postCtrl.post.description}}</p>
                 <div class="post-sig">
-                    <span class="post-author"><a ui-sref="author({ slug: postCtrl.post.profile.slug })">{{postCtrl.post.profile.authorName}}</a></span>
+                    <span class="post-author"><a ui-sref="profile({ slug: postCtrl.post.profile.slug })">{{postCtrl.post.profile.authorName}}</a></span>
                     &nbsp;&mdash;&nbsp;
                     <span class="post-date">{{postCtrl.post.published | date: 'shortDate'}}</span>
                 </div>

@@ -90,6 +90,19 @@
                 }
             }
         });
+        $stateProvider.state('profile', {
+            url: '/profile/:slug',
+            component: 'profile',
+            resolve: {
+                config: ['$stateParams', function ($stateParams) {
+                    return {
+                        type: 'profile',
+                        slug: $stateParams.slug,
+                        url: '/blogifier/api/public/authors/' + $stateParams.slug
+                    }
+                }]
+            }
+        });
         $stateProvider.state('search', {
             url: '/search/:page/:slug',
             component: 'postsList',
@@ -467,6 +480,41 @@
             }
         }],
         controllerAs: 'postCtrl'
+    })
+
+    .component('profile', {
+        bindings: {
+            config: '<'
+        },
+        templateUrl: '/blogifier/blog/AngularMaterial/templates/profile.tpl.html',
+        controller: ['$http', '$scope', '$mdMedia', function ($http, $scope, $mdMedia) {
+
+            this.state = 'init';
+            var ctrl = this;
+            $scope.$mdMedia = $mdMedia;
+
+            var loadProfile = function (url) {
+                $http({
+                    method: 'GET',
+                    url: url
+                }).then(function successCallback(response) {
+                    if (response.data) {
+                        ctrl.profile = response.data[0];
+                        ctrl.state = 'done';
+                        $scope.$emit('loadComplete');
+                    }
+                }, function errorCallback(response) {
+                    ctrl.state = 'error';
+                    $scope.$emit('loadComplete');
+                });
+            };
+
+            this.$onInit = function () {
+                var url = ctrl.config.url;
+                loadProfile(url);
+            }
+        }],
+        controllerAs: 'profileCtrl'
     })
 
     .directive('disqusThread', ['$stateParams', '$http', '$compile', '$rootScope', function ($stateParams, $http, $compile, $rootScope) {

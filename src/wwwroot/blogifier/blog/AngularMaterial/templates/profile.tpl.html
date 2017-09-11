@@ -1,0 +1,17 @@
+﻿<div flex layout="row" layout-align="start stretch" class="profile-wrapper">
+    <md-card flex>
+        <md-card-title>
+            <md-card-title-text>
+                <span class="md-headline">{{profileCtrl.profile.authorName}}</span>
+            </md-card-title-text>
+            <md-card-title-media>
+                <div ng-class="{'md-media-sm': $mdMedia('(max-width: 959px)'), 'md-media-md': $mdMedia('md'), 'md-media-lg': $mdMedia('lg'), 'md-media-xl': $mdMedia('xl')}" class="card-media">
+                    <img src="{{profileCtrl.profile.avatar}}" style="width: 100%;" />
+                </div>
+            </md-card-title-media>
+        </md-card-title>
+        <md-card-content layout="column">            
+            <md-button ui-sref="author({ slug: profileCtrl.profile.slug })" class="md-primary md-raised" style="max-width: 10em;">View Posts</md-button>
+        </md-card-content>
+    </md-card>
+</div>
