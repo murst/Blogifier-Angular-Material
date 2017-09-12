@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using System.Xml.Linq;
 using System;
+using Blogifier.Core.Data.Domain;
 
 namespace WebApp.Controllers.Api.Public
 {
@@ -16,9 +17,14 @@ namespace WebApp.Controllers.Api.Public
             _db = db;
         }
 
-        public string GetUrl(Blogifier.Core.Data.Domain.BlogPost post)
+        public string GetPostUrl(BlogPost post)
         {
             return String.Format("{0}://{1}/#!/post/{2}", Request.IsHttps ? "https" : "http", Request.Host, post.Slug);
+        }
+
+        public string GetPostDate(BlogPost post)
+        {
+            return post.LastUpdated > post.Published ? post.LastUpdated.ToString("yyyy-MM-ddTHH:mm:sszzz") : post.Published.ToString("yyyy-MM-ddTHH:mm:sszzz");
         }
 
         [Produces("text/xml")]
@@ -34,8 +40,8 @@ namespace WebApp.Controllers.Api.Public
                 new XElement(sitemap + "urlset", 
                     from post in posts
                     select new XElement(sitemap + "url", 
-                        new XElement(sitemap + "loc", GetUrl(post)),
-                        new XElement(sitemap + "lastmod", post.LastUpdated.ToString("yyyy-M-d")),
+                        new XElement(sitemap + "loc", GetPostUrl(post)),
+                        new XElement(sitemap + "lastmod", GetPostDate(post)),
                         new XElement(sitemap + "changefreq", "monthly")
                     )
                 )
