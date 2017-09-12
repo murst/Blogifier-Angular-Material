@@ -1,43 +1,47 @@
 ﻿@model Blogifier.Core.Data.Models.BlogPostsModel
-
-<md-toolbar class="menu-bar menu-gradient animated-gradient">
-    <div class="md-toolbar-tools">
-        <md-button aria-label="Blog Home" ui-sref="home({ page: 1 })">
-            <md-icon ng-show="$mdMedia('gt-sm')">home</md-icon>
-            <span>Home</span>
-        </md-button>
-        <md-button ng-click="toggleCategoryMenu(!categoryMenuVisible)">
-            <md-icon ng-show="$mdMedia('gt-sm')">label</md-icon>
-            <span>Categories</span>
-        </md-button>
-        <span md-truncate flex></span>
-        <md-button ng-show="google" href="{{google}}" class="social-button">
-            <md-tooltip md-direction="bottom" md-autohide="true">Google Plus</md-tooltip>
-            <span class="fa fa-google-plus"></span>
-        </md-button>
-        <md-button ng-show="github" href="{{github}}" class="social-button">
-            <md-tooltip md-direction="bottom" md-autohide="true">Github</md-tooltip>
-            <span class="fa fa-github"></span>
-        </md-button>
-        <md-button ng-show="twitter" href="{{twitter}}" class="social-button">
-            <md-tooltip md-direction="bottom" md-autohide="true">Twitter</md-tooltip>
-            <span class="fa fa-twitter"></span>
-        </md-button>
-        <md-button ng-show="facebook" href="{{facebook}}" class="social-button">
-            <md-tooltip md-direction="bottom" md-autohide="true">Facebook</md-tooltip>
-            <span class="fa fa-facebook"></span>
-        </md-button>
-        <md-button ng-show="instagram" href="{{instagram}}" class="social-button">
-            <md-tooltip md-direction="bottom" md-autohide="true">Instagram</md-tooltip>
-            <span class="fa fa-instagram"></span>
-        </md-button>
-        <input type="search" id="term" name="term" class="form-control" ng-show="blogsearch" ng-blur="blogsearch=false" placeholder="Search..." style="width: 10em;">
-        <md-button ng-hide="blogsearch" ng-click="showSearch()">
-            <md-icon>search</md-icon>
-            <span ng-show="$mdMedia('gt-sm')">Search</span>
-        </md-button>
+<div>
+    <md-toolbar class="menu-bar menu-gradient animated-gradient">
+        <div class="md-toolbar-tools">
+            <md-button aria-label="Blog Home" ui-sref="home({ page: 1 })">
+                <md-icon ng-show="$mdMedia('gt-sm')">home</md-icon>
+                <span>Home</span>
+            </md-button>
+            <md-button ng-click="toggleCategoryMenu(!categoryMenuVisible)">
+                <md-icon ng-show="$mdMedia('gt-sm')">label</md-icon>
+                <span>Categories</span>
+            </md-button>
+            <span md-truncate flex></span>
+            <md-button ng-show="google" href="{{google}}" class="social-button">
+                <md-tooltip md-direction="bottom" md-autohide="true">Google Plus</md-tooltip>
+                <span class="fa fa-google-plus"></span>
+            </md-button>
+            <md-button ng-show="github" href="{{github}}" class="social-button">
+                <md-tooltip md-direction="bottom" md-autohide="true">Github</md-tooltip>
+                <span class="fa fa-github"></span>
+            </md-button>
+            <md-button ng-show="twitter" href="{{twitter}}" class="social-button">
+                <md-tooltip md-direction="bottom" md-autohide="true">Twitter</md-tooltip>
+                <span class="fa fa-twitter"></span>
+            </md-button>
+            <md-button ng-show="facebook" href="{{facebook}}" class="social-button">
+                <md-tooltip md-direction="bottom" md-autohide="true">Facebook</md-tooltip>
+                <span class="fa fa-facebook"></span>
+            </md-button>
+            <md-button ng-show="instagram" href="{{instagram}}" class="social-button">
+                <md-tooltip md-direction="bottom" md-autohide="true">Instagram</md-tooltip>
+                <span class="fa fa-instagram"></span>
+            </md-button>
+            <input type="search" id="term" name="term" class="form-control" ng-show="blogsearch" ng-blur="blogsearch=false" placeholder="Search..." style="width: 10em;">
+            <md-button ng-hide="blogsearch" ng-click="showSearch()">
+                <md-icon>search</md-icon>
+                <span ng-show="$mdMedia('gt-sm')">Search</span>
+            </md-button>
+        </div>
+    </md-toolbar>
+    <md-tabs id="category-bar" class="category-bar" aria-label="Category Bar" ng-show="categoryMenuVisible" md-selected="selectedCategoryNavItemIndex">
+        <md-tab ng-repeat="cat in categories" ng-click="menuNavigate('category-bar', 'category', { category: cat.slug })" name="{{cat.slug}}" data-categorySlug="{{cat.slug}}" data-categoryId="{{cat.id}}" label="{{cat.title}}"></md-tab>
+    </md-tabs>
+    <div id="load-progress-container">
+        <md-progress-linear flex class="load-progress" md-mode="indeterminate"></md-progress-linear>
     </div>
-</md-toolbar>
-<md-tabs id="category-bar" class="category-bar" aria-label="Category Bar" ng-show="categoryMenuVisible" md-selected="selectedCategoryNavItemIndex">
-    <md-tab ng-repeat="cat in categories" ng-click="menuNavigate('category-bar', 'category', { category: cat.slug })" name="{{cat.slug}}" data-categorySlug="{{cat.slug}}" data-categoryId="{{cat.id}}" label="{{cat.title}}"></md-tab>
-</md-tabs>
+</div>

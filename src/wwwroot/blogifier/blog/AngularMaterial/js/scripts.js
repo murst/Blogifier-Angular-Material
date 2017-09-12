@@ -124,7 +124,7 @@
         });
     }])
 
-    .controller('angularMaterialAppController', ['$log', '$scope', '$rootScope', '$mdSidenav', '$state', '$stateParams', '$transitions', '$http', '$mdMedia', function ($log, $scope, $rootScope, $mdSidenav, $state, $stateParams, $transitions, $http, $mdMedia) {
+    .controller('angularMaterialAppController', ['$log', '$scope', '$rootScope', '$state', '$stateParams', '$transitions', '$http', '$mdMedia', function ($log, $scope, $rootScope, $state, $stateParams, $transitions, $http, $mdMedia) {
 
         $rootScope.blogSettings = {};
         $scope.$mdMedia = $mdMedia;
@@ -136,7 +136,7 @@
 
         $transitions.onStart({}, function () {
             $window.scrollTop(0);
-            $('#load-progress').show();
+            $('#load-progress-container').show();
             $scope.toggleCategoryMenu(false);
             $scope.selectedCategoryNavItemIndex = -1;
         });
@@ -180,7 +180,7 @@
         });
 
         $scope.$on('loadComplete', function () {
-            $('#load-progress').hide();
+            $('#load-progress-container').hide('slow');
         });
 
         $scope.showSearch = function () {
@@ -196,20 +196,11 @@
                 $scope.blogsearch = false;
                 evt.preventDefault();
                 evt.stopPropagation();
-                $mdSidenav('left-menu').close();
             }
         });
 
         $scope.profileLogOut = function () {
             $("#frmLogOut").submit();
-        };
-        $scope.openSidenav = function (id) {
-            $mdSidenav(id).toggle();
-        };
-
-        $scope.sidenavNavigate = function (sidenavId, targetState, pObj) {
-            $scope.navigate(targetState, pObj);
-            $mdSidenav(sidenavId).close();
         };
 
         $scope.menuNavigate = function (menuId, targetState, pObj) {

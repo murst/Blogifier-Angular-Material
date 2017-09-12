@@ -35,9 +35,18 @@ md-nav-bar * {
     width: 100%;
 }
 
-.load-progress {
-    margin: 5em 0;
+#load-progress-container {
+    width: 100%;
+    z-index: 9999;
+    pointer-events: none;
+    position: absolute;
+    top: 0;
+    left: 0;
 }
+
+    #load-progress-container .load-progress-bar {
+        height: 5px;
+    }
 
 .content-wrapper {
     margin: 0 auto; 
