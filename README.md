@@ -1,5 +1,5 @@
 # Angular Material theme for Blogifier
-View the latest build of the theme on [test.bloodforge.com](http://test.bloodforge.com)
+View the latest build of the theme on [www.bloodforge.com](http://www.bloodforge.com)
 
 The purpose of this project is to create a theme for [blogifier](https://github.com/blogifierdotnet/Blogifier.Core) using AngularJS (1.x) and Google's Angular Material library.
 
@@ -31,4 +31,4 @@ needs to be changed to
 services.AddMvc().AddJsonOptions(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 ```
 
-The theme is currently compatible with the dev branch of Blogifier.Core. In the future, I will convert this to follow the stable branch.
+The theme is compatible with the stable branch of Blogifier.Core, version 1.2.
